@@ -12,8 +12,8 @@ This yt-transcript repository provides a comprehensive setup guide for using AI 
 ```
 yt-transcript/
 ├── models/                # Whisper model files
-├── audios/                 # Processed audio files
-├── scripts/             # Custom processing scripts
+├── audios/                # Processed audio files
+├── transcripts/           # Custom processing scripts
 └── README.md
 ```
 
