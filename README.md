@@ -46,15 +46,14 @@ cd yt-transcript
 
 ### Ollama model pull
 
-1. Use `ollama pull` to download modle
+Use `ollama pull` to download modle
 ```bash
 ollama pull qwen3:4b
 ```
 
 ### LLM Model Config
 
-~/Library/"Application Support"/io.datasette.llm/extra-openai-models.yaml
-
+Edit ~/Library/"Application Support"/io.datasette.llm/extra-openai-models.yaml
 (Change to your own user profile path)
 
 ```text
