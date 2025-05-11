@@ -92,7 +92,7 @@ whisper-cli -m models/whisper-large-v3-cantonese.bf16.bin -l auto audios/beyond_
 ```
 3. Use `llm` and `ollama` for language model inference
 ```bash
-cat transcripts/beyond_kol2025a.lrc | llm -m qwen3_4b -s "show with Traditional Hong Kong Chinese, list the items discuss in the video transcript, in point form, make summary /no_think"
+cat transcripts/beyond_kol2025.lrc | llm -m qwen3_4b -s "show with Traditional Hong Kong Chinese, list the items discuss in the video transcript, in point form, make summary /no_think"
 ```
 
 ## 📝 Notes
