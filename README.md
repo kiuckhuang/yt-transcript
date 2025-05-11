@@ -7,6 +7,16 @@ This yt-transcript repository provides a comprehensive setup guide for using AI 
 - Ollama for local LLM execution
 - Cantonese-specific fine-tuned model
 
+## 📦 Project Structure
+
+```
+yt-transcript/
+├── models/                # Whisper model files
+├── audios/                 # Processed audio files
+├── scripts/             # Custom processing scripts
+└── README.md
+```
+
 ## 🛠 Installation
 
 ### Prerequisites
@@ -26,15 +36,22 @@ brew install ollama      # Open-source LLM platform (https://ollama.com)
 brew install llm         # CLI LLM client (https://llm.datasette.io)
 ```
 
+### Download the project
 
-## Ollama model pull
+```bash
+git clone https://github.com/kiuckhuang/yt-transcript.git
+cd yt-transcript
+```
+
+
+### Ollama model pull
 
 1. Use `ollama pull` to download modle
 ```bash
 ollama pull qwen3:4b
 ```
 
-## LLM Model Config
+### LLM Model Config
 
 ~/Library/"Application Support"/io.datasette.llm/extra-openai-models.yaml
 
@@ -51,7 +68,7 @@ ollama pull qwen3:4b
   api_base: "http://192.168.1.8:8080/v1"
 ```
 
-## Whisper Models
+### Whisper Models
 
 1. **Base Whisper Models**  
    Download from: https://huggingface.co/ggerganov/whisper.cpp
@@ -79,23 +96,13 @@ whisper-cli -m models/whisper-large-v3-cantonese.bf16.bin -l auto audios/beyond_
 cat transcripts/beyond_kol2025a.lrc | llm -m qwen3_4b -s "show with Traditional Hong Kong Chinese, list the items discuss in the video transcript, in point form, make summary /no_think"
 ```
 
-## 📦 Project Structure
-
-```
-project-root/
-├── models/                # Whisper model files
-├── audios/                 # Processed audio files
-├── scripts/             # Custom processing scripts
-└── README.md
-```
-
 ## 📝 Notes
 
 - Ensure all models are placed in the `models/` directory
 - Check https://llm.datasette.io for CLI LLM configuration options
 - Ollama models can be managed with `ollama pull <model-name>`
 
-Would you like me to customize this further with specific workflow instructions or project details?
+
 ## 🌐 Resources
 
 - [YouTube-DL GitHub](https://github.com/yt-dlp/yt-dlp)
