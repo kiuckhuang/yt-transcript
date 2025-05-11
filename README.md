@@ -45,7 +45,7 @@ brew install llm         # CLI LLM client (https://llm.datasette.io)
 ```
 project-root/
 ├── models/                # Whisper model files
-├── audio/                 # Processed audio files
+├── audios/                 # Processed audio files
 ├── scripts/             # Custom processing scripts
 └── README.md
 ```
