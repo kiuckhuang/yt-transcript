@@ -7,7 +7,7 @@ This yt-transcript repository provides a comprehensive setup guide for using AI 
 - Ollama for local LLM execution
 - Cantonese-specific fine-tuned model
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 yt-transcript/
@@ -21,7 +21,7 @@ yt-transcript/
 
 ### Prerequisites
 
-1. **Homebrew** - Package manager for macOS and Linux
+**Homebrew** - Package manager for macOS and Linux
    ```bash
    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
    ```
