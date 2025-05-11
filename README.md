@@ -26,7 +26,32 @@ brew install ollama      # Open-source LLM platform (https://ollama.com)
 brew install llm         # CLI LLM client (https://llm.datasette.io)
 ```
 
-## 🧠 Models
+
+## Ollama model pull
+
+1. Use `ollama pull` to download modle
+```bash
+ollama pull qwen3:4b
+```
+
+## LLM Model Config
+
+~/Library/"Application Support"/io.datasette.llm/extra-openai-models.yaml
+
+(Change to your own user profile path)
+
+```text
+- model_id: qwen3:4b
+  model_name: qwen3:4b
+  aliases: ["qwen3_4b"]
+  api_base: "http://localhost:11434/v1"
+- model_id: qwen3-32b
+  model_name: qwen3-32b
+  aliases: ["qwen3_32b"]
+  api_base: "http://192.168.1.8:8080/v1"
+```
+
+## Whisper Models
 
 1. **Base Whisper Models**  
    Download from: https://huggingface.co/ggerganov/whisper.cpp
@@ -34,11 +59,25 @@ brew install llm         # CLI LLM client (https://llm.datasette.io)
 2. **Cantonese Fine-tuned Model**  
    Download from: https://huggingface.co/kiuckhuang/whisper-large-v3-cantonese-ggml
 
-## 🧪 Usage
+```bash
+curl -o models/whisper-large-v3-cantonese.bf16.bin https://huggingface.co/kiuckhuang/whisper-large-v3-cantonese-ggml/resolve/main/whisper-large-v3-cantonese.bf16.bin?download=true
+```
+
+
+## Sample Usage
 
 1. Use `yt-dlp` to download audio content
+```bash
+yt-dlp -f 'ba[acodec^=mp3]/ba/b' -x --audio-format mp3 -o audios/beyond_kol2025.mp3 "https://www.youtube.com/watch?v=9fLILe-SReU"
+```
 2. Process audio files with `whisper-cpp` using appropriate models
+```bash
+whisper-cli -m models/whisper-large-v3-cantonese.bf16.bin -l auto audios/beyond_kol2025.mp3 -olrc -fa -sns --output-file transcripts/beyond_kol2025
+```
 3. Use `llm` and `ollama` for language model inference
+```bash
+cat transcripts/beyond_kol2025a.lrc | llm -m qwen3_4b -s "show with Traditional Hong Kong Chinese, list the items discuss in the video transcript, in point form, make summary /no_think"
+```
 
 ## 📦 Project Structure
 
@@ -60,6 +99,7 @@ Would you like me to customize this further with specific workflow instructions 
 ## 🌐 Resources
 
 - [YouTube-DL GitHub](https://github.com/yt-dlp/yt-dlp)
+- [YouTube Transcript API GitHub](https://github.com/jdepoix/youtube-transcript-api)
 - [Whisper.cpp GitHub](https://github.com/ggml-org/whisper.cpp)
 - [Ollama Website](https://ollama.com/)
 - [CLI LLM Documentation](https://llm.datasette.io/en/stable/index.html)
