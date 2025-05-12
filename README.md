@@ -76,7 +76,7 @@ Edit ~/Library/"Application Support"/io.datasette.llm/extra-openai-models.yaml
    Download from: https://huggingface.co/kiuckhuang/whisper-large-v3-cantonese-ggml
 
 ```bash
-curl -o models/whisper-large-v3-cantonese.bf16.bin https://huggingface.co/kiuckhuang/whisper-large-v3-cantonese-ggml/resolve/main/whisper-large-v3-cantonese.bf16.bin?download=true
+curl -L -o models/whisper-large-v3-cantonese.bf16.bin 'https://huggingface.co/kiuckhuang/whisper-large-v3-cantonese-ggml/resolve/main/whisper-large-v3-cantonese.bf16.bin?download=true'
 ```
 
 
