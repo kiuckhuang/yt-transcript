@@ -67,6 +67,12 @@ Edit ~/Library/"Application Support"/io.datasette.llm/extra-openai-models.yaml
   api_base: "http://192.168.1.8:8080/v1"
 ```
 
+### Non-Local LLM models with API (Google Gemini, avoid shock billing, make sure use only free models)
+- [llm-gemini](https://github.com/simonw/llm-gemini)
+- [Gemini Developer API Pricing](https://ai.google.dev/gemini-api/docs/pricing)
+- [Gemini API Keys](https://aistudio.google.com/apikey)
+
+
 ### Whisper Models
 
 1. **Base Whisper Models**  
@@ -90,9 +96,14 @@ yt-dlp -f 'ba[acodec^=mp3]/ba/b' -x --audio-format mp3 -o audios/beyond_kol2025.
 ```bash
 whisper-cli -m models/whisper-large-v3-cantonese.bf16.bin -l auto audios/beyond_kol2025.mp3 -olrc -fa -sns --output-file transcripts/beyond_kol2025
 ```
-3. Use `llm` and `ollama` for language model inference
+3. Use `llm`
+- `ollama` for language model inference
 ```bash
 cat transcripts/beyond_kol2025.lrc | llm -m qwen3_4b -s "show with Traditional Hong Kong Chinese, list the items discuss in the video transcript, in point form, make summary /no_think"
+```
+- Google gemini-2.0-flash
+```bash
+cat transcripts/beyond_kol2025.lrc | llm -m gemini-2.0-flash -s "show with Traditional Hong Kong Chinese, list the items discuss in the video transcript, in point form, make summary"
 ```
 
 ## 📝 Notes
