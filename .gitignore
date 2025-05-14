@@ -2,6 +2,7 @@
 models/
 audios/
 transcripts/
+scripts/
 
 __pycache__/
 *.py[cod]
