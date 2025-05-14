@@ -41,6 +41,7 @@ brew install llm         # CLI LLM client (https://llm.datasette.io)
 ```bash
 git clone https://github.com/kiuckhuang/yt-transcript.git
 cd yt-transcript
+mkdir -p {models,audios,transcripts}
 ```
 
 
@@ -68,6 +69,7 @@ Edit ~/Library/"Application Support"/io.datasette.llm/extra-openai-models.yaml
 ```
 
 ### Non-Local LLM models with API (Google Gemini, avoid shock billing, make sure use only free models)
+
 - [llm-gemini](https://github.com/simonw/llm-gemini)
 - [Gemini Developer API Pricing](https://ai.google.dev/gemini-api/docs/pricing)
 - [Gemini API Keys](https://aistudio.google.com/apikey)
