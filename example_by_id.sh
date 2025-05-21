@@ -11,16 +11,19 @@ function show_help() {
     echo "  -c, --cleanup       Clean up temporary files"
     echo "  -m, --model <path>  Specify Whisper model path"
     echo "  -o, --output <dir>  Specify output directory"
+    echo "  -t, --output-type   Specify output type (TEXT or HTML)"
     echo ""
     echo "Examples:"
     echo "  $0 https://www.youtube.com/watch?v=dQw4w9WgXcQ"
     echo "  $0 -c https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+    echo "  $0 -t TEXT https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 }
 
 # Parse command line arguments
 CLEANUP=false
 MODEL_PATH=""
 OUTPUT_DIR="."
+OUTPUT_TYPE="TEXT"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -28,6 +31,7 @@ while [[ "$#" -gt 0 ]]; do
         -c|--cleanup) CLEANUP=true ;;
         -m|--model) MODEL_PATH="$2"; shift ;;
         -o|--output) OUTPUT_DIR="$2"; shift ;;
+        -t|--output-type) OUTPUT_TYPE="$2"; shift ;;
         *) break ;;
     esac
     shift
@@ -121,14 +125,28 @@ function generate_summary() {
     local output_file="$2"
 
     echo "Generating summary using Google Gemini model..."
-    cat "${transcript_file}.lrc" | \
-     llm -m gemini-2.5-flash-preview-05-20 \
-         -s "show in Traditional Hong Kong Chinese Language,
-            list the items discuss in the video transcript,
-            in table format with alternative-row color with item name, price and description,
-            make summary. 
-            Pretty format and use HTML source output to save as .html file" \
-        > "${output_file}"
+
+    # Determine the output format based on OUTPUT_TYPE
+    if [[ "${OUTPUT_TYPE}" == "TEXT" ]]; then
+        cat "${transcript_file}.lrc" | \
+         llm -m gemini-2.5-flash-preview-05-20 \
+             -s "show in Traditional Hong Kong Chinese Language,
+                list the items discuss in the video transcript,
+                in table format with item name, price and description,
+                make summary. 
+                Pretty format and use plain text output" \
+            > "${output_file}"
+    else
+        cat "${transcript_file}.lrc" | \
+         llm -m gemini-2.5-flash-preview-05-20 \
+             -s "show in Traditional Hong Kong Chinese Language,
+                list the items discuss in the video transcript,
+                in table format with alternative-row color with item name, price and description,
+                make summary. 
+                Pretty format and use HTML source output to save as .html file" \
+            sed -n '/```html/,/```/p' | sed -e '1d' -e '$d' \
+            > "${output_file}"
+    fi
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to generate summary."
@@ -165,7 +183,11 @@ else
 fi
 
 # Step 3: Generate summary using LLM
-generate_summary "${TRANSCRIPT_FILE}" "${TRANSCRIPT_FILE}.html"
+if [[ "${OUTPUT_TYPE}" == "TEXT" ]]; then
+    generate_summary "${TRANSCRIPT_FILE}" "${TRANSCRIPT_FILE}.txt"
+else
+    generate_summary "${TRANSCRIPT_FILE}" "${TRANSCRIPT_FILE}.html"
+fi
 
 # Clean up if requested
 if ${CLEANUP}; then
