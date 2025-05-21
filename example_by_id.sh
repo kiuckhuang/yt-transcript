@@ -23,7 +23,7 @@ function show_help() {
 CLEANUP=false
 MODEL_PATH=""
 OUTPUT_DIR="."
-OUTPUT_TYPE="TEXT"
+OUTPUT_TYPE="HTML"
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -143,8 +143,8 @@ function generate_summary() {
                 list the items discuss in the video transcript,
                 in table format with alternative-row color with item name, price and description,
                 make summary. 
-                Pretty format and use HTML source output to save as .html file" \
-            sed -n '/```html/,/```/p' | sed -e '1d' -e '$d' \
+                Pretty format and use HTML source output to save as .html file" | \
+            sed -n '/\`\`\`html/,/\`\`\`/p' | sed -e '1d' -e '$d' \
             > "${output_file}"
     fi
 
