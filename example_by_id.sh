@@ -111,7 +111,7 @@ function transcribe_audio() {
     local model="$3"
 
     echo "Transcribing audio: ${audio_file}"
-    whisper-cli -m "${model}" -l auto "${audio_file}" -olrc -fa -sns --output-file "${output_file}"
+    whisper-cli -m "${model}" -l auto "${audio_file}" --no-speech-thold 0.4 -olrc -fa -sns --output-file "${output_file}"
 
     if [[ $? -ne 0 ]]; then
         echo "Error: Failed to transcribe audio."
